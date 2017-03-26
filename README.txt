@@ -1,3 +1,4 @@
+
 March 25, 2017
 
 Original data 
@@ -18,7 +19,8 @@ The output files, written in the current directory as the output of run_analysis
 --output.txt ( data frame new_reqdt2 of 180 observations and 20 variables)
 --finalmelt.txt (data frame finalmelt of 3240 observations of 4 variables)
 
-Steps to be performed -
+Steps to be performed in Git bash and Rstudio
+git clone https://github.com/kbkankbo/HAR_data_analysis_project.git
 source('run_analysis.R')
 
 Notes- Data will be downloaded and unzipped in the current working directory when the run_analysis.R is executed
