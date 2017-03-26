@@ -28,9 +28,9 @@ Following files from the original dataset were not used-
 
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
 
-=================================================================================
+
  Steps performed in run_analysis.R to transform the data and their structures and variables are as follows-
-=================================================================================
+
 1) Download the data and unzip the file. This is stored in destination file projdata.zip in the current working directory
 
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -124,7 +124,7 @@ suppressMessages(library(tidyr))
 
 8) Arrange according to the subject id in ascending order
 full_df <- tbl_df(full_dataset)
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  563 variables:
+Classes â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	10299 obs. of  563 variables:
  $ Subject : int  2 2 2 2 2 2 2 2 2 2 ...
  $ Activity: int  5 5 5 5 5 5 5 5 5 5 ...
  $ V1      : num  0.257 0.286 0.275 0.27 0.275 ...
@@ -138,7 +138,7 @@ arr_full_df <- arrange(full_df,Subject)
 arr_full_df$Activity <- as.factor(arr_full_df$Activity)
 arr_full_df$Activity <- recode(arr_full_df$Activity, "1"="WALKING", "2"="WALKING_UPSTAIRS", "3"="WALKING_DOWNSTAIRS", "4"= "SITTING", "5"= "STANDING", "6"="LAYING")
 str(arr_full_df)
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  563 variables:
+Classes â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	10299 obs. of  563 variables:
  $ Subject : int  1 1 1 1 1 1 1 1 1 1 ...
  $ Activity: Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 5 5 5 5 5 5 5 5 5 5 ...
  $ V1      : num  0.289 0.278 0.28 0.279 0.277 ...
@@ -181,7 +181,7 @@ names(new_reqd_df)[3:20] <- col_names
 
 new_reqd_df$Subject <- as.factor(new_reqd_df$Subject)
 
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  20 variables:
+Classes â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	10299 obs. of  20 variables:
  $ Subject                    : Factor w/ 30 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
  $ Activity                   : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 5 5 5 5 5 5 5 5 5 5 ...
  $ tBodyAccMag-mean()         : num  -0.958 -0.978 -0.988 -0.986 -0.991 ...
@@ -192,7 +192,7 @@ Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  20 variables:
 #group by
 new_reqdt1 <- group_by(new_reqd_df,Subject, Activity)
 
-Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  20 variables:
+Classes â€˜grouped_dfâ€™, â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	10299 obs. of  20 variables:
  $ Subject                    : Factor w/ 30 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
  $ Activity                   : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 5 5 5 5 5 5 5 5 5 5 ...
  $ tBodyAccMag-mean()         : num  -0.958 -0.978 -0.988 -0.986 -0.991 ...
@@ -206,7 +206,7 @@ Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	10299 obs. of  20 variab
 
  new_reqdt2 <- summarise_each(new_reqdt1,funs(mean))
 
-Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	180 obs. of  20 variables:
+Classes â€˜grouped_dfâ€™, â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	180 obs. of  20 variables:
  $ Subject                    : Factor w/ 30 levels "1","2","3","4",..: 1 1 1 1 1 1 2 2 2 2 ...
  $ Activity                   : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...
  $ tBodyAccMag-mean()         : num  -0.297 -0.388 -0.1 -0.931 -0.983 ...
@@ -220,7 +220,7 @@ Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	180 obs. of  20 variable
 12) Another independent tidy dataset
 finalmelt <- gather(new_reqdt2,"variable","values",3:20)
 
-Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	3240 obs. of  4 variables:
+Classes â€˜grouped_dfâ€™, â€˜tbl_dfâ€™, â€˜tblâ€™ and 'data.frame':	3240 obs. of  4 variables:
  $ Subject : Factor w/ 30 levels "1","2","3","4",..: 1 1 1 1 1 1 2 2 2 2 ...
  $ Activity: Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...
  $ variable: chr  "tBodyAccMag-mean()" "tBodyAccMag-mean()" "tBodyAccMag-mean()" "tBodyAccMag-mean()" ...
@@ -242,7 +242,7 @@ Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	3240 obs. of  4 variable
 write.table(new_reqdt2,"./output.txt", sep = "\t")
 write.table(finalmelt,"./finalmelt.txt", sep ="\t")
 
-==================================================================================================================================================================
+=========================================================================================================================================
 
 
 Additional information-
